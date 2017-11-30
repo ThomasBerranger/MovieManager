@@ -9,7 +9,7 @@ Réaliser un "gros" projet sous Symfony3 afin de maitriser les fonctionnalités 
 
 - Symfony 3
 - Doctrine 2
-- Mysql
+- MySQL
 - Materialize : http://materializecss.com/
 - Icons : https://www.flaticon.com/packs/kids-avatars
 
