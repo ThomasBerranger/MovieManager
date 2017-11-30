@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<br>
+<div class="row">
+    {{ form_start(form) }}
+    <div class="input-field col s8 offset-s2">
+        {{ form_row(form.username) }}
+    </div>
+    <div class="input-field col s8 offset-s2">
+        {{ form_row(form.email) }}
+    </div>
+    <div class="input-field col s8 offset-s2">
+        {{ form_row(form.plainPassword.first) }}
+    </div>
+    <div class="input-field col s8 offset-s2">
+        {{ form_row(form.plainPassword.second) }}
+    </div>
+
+    <div class="file-field input-field col s8 offset-s2">
+        <div class="btn">
+            <span>Picture</span>
+            {{ form_errors(form.picture) }}
+            {{ form_widget(form.picture) }}
+        </div>
+        <div class="file-path-wrapper">
+            <input class="file-path validate" type="text" placeholder="png, jpg, jpeg and gif">
+        </div>
+    </div>
+
+    <div class="col s8 offset-s2">
+        <br>
+        {{ form_widget(form.termsAccepted) }}
+        <label for="user_termsAccepted">I agree with terms</label>
+    </div>
+    <div class="input-field col s8 offset-s2">
+        <br>
+        <button type="submit" class="btn waves-effect waves-light light-green">Register</button>
+        {{ form_end(form) }}
+        <a href="{{ path('login') }}" role="button" class="btn waves-effect waves-light light-blue pull-right">Login</a>
+    </div>
+</div>
+
+    {% endblock %}
+
+    {% block stylesheets %}
+    {% endblock %}

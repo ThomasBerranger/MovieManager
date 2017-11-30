@@ -1,0 +1,171 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <nav>
+        <div class="nav-wrapper light-blue darken-1">
+            <div class="row">
+                <div class="col s11 offset-s1" style="margin-top: -7px">
+                    <a href="{{ path('home') }}" class="breadcrumb">Menu</a>
+                    <a href="{{ path('article_list') }}" class="breadcrumb">Library</a>
+                    <a href="" class="breadcrumb">{{ article.name }}</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row">
+        <div class="col s12">
+            <h2 class="center">{{ article.name }}</h2>
+        </div>
+    </div>
+
+    <div class="row pic_article">
+        <div class="col s12 m6 l3 offset-l1 center">
+            <img src="{{ asset('uploads/covers/'~article.cover) }}" alt="{{ article.cover }}" class="center responsive-img materialboxed">
+        </div>
+        <div class="col s12 m6 l6 offset-l1 valign-wrapper" style="text-align: justify">
+            <h5>{{ article.synopsis }}</h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 m6 l6 center">
+            <h5>Author : {{ article.author }}</h5>
+            <h5>Released date : {{ article.date|date('d-M-y') }}</h5>
+            <h5>Category :<span> <a href="{{ path('article_list_category', {'categoryId':article.category.id}) }}"> {{ article.category.name }} </a></span></h5>
+            <h5>Tags :
+                {% for tag in article.tags %}
+                    <a href="#{{ tag.name }}">{{ tag.name }}</a>{% if loop.last == false %}, {% endif %}
+                {% endfor %}
+            </h5>
+        </div>
+        <div class="col s12 m6 l6 center">
+
+            <h5> Note :
+                {% if article.note != null %}
+                    {{ article.note }} / 10
+                {% else %}
+                    in coming..
+                {% endif %}
+            </h5>
+
+            <h5> Number of wish : {{ article.wishes|length }}</h5>
+
+            <h5>Number of like : {{ article.likes|length }}</h5>
+
+            <h5>Number of view : {{ article.watched|length }}</h5>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12 center">
+            {% for articleWatch in app.user.articleWatcheds if articleWatch.id == article.id %}
+                <a href="{{ path('user_watched_delete', {'id': article.id}) }}" class="btn-floating waves-effect blue lighten-2 tooltipped" data-position="bottom" data-delay="50" data-tooltip="You saw {{ article.name }}"><i class="fa fa-eye"></i></a>
+            {% else %}
+                <a href="{{ path('user_watched_add', {'id': article.id}) }}" class="btn-floating waves-effect blue lighten-2 tooltipped" data-position="bottom" data-delay="50" data-tooltip="You haven't seen {{ article.name }}"><i class="fa fa-eye-slash"></i></a>
+            {% endfor %}
+            {% for articleWish in app.user.articleWishes if articleWish.id == article.id %}
+                <a href="{{ path('user_wish_delete', {'id': article.id}) }}" class="btn-floating waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Remove {{ article.name }} from your wish list"><i class="material-icons">remove</i></a>
+            {% else %}
+                <a href="{{ path('user_wish_add', {'id': article.id}) }}" class="btn-floating waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Add {{ article.name }} to your wish list"><i class="material-icons">add</i></a>
+            {% endfor %}
+            {% for articleLike in app.user.articleLikes if articleLike.id == article.id %}
+                <a href="{{ path('user_like_delete', {'id': article.id}) }}" class="btn-floating waves-effect waves-light pink lighten-1 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Remove {{ article.name }} from your favorite list"><i class="material-icons">favorite</i></a>
+            {% else %}
+                <a href="{{ path('user_like_add', {'id': article.id}) }}" class="btn-floating waves-effect waves-light pink lighten-1 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Add {{ article.name }} to your favorite list"><i class="material-icons">favorite_border</i></a>
+            {% endfor %}
+            <a href="{{ path('article_list_category', {'categoryId':article.category.id}) }}" class="btn-floating waves-effect green lighten-2 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Watch {{ article.name }}'s category"><i class="fa fa-folder-o"></i></a>
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('article_delete', {'id': article.id}) }}" role="button" class="btn waves-effect waves-light red darken-4" onclick="return confirm('Are u sure about delete {{ article.name }} ?')"><i class="fa fa-trash"></i> Delete</a>
+                <a href="{{ path('article_edit', {'id': article.id}) }}" role="button" class="btn waves-effect waves-light orange accent-4"><i class="fa fa-pencil-square-o"></i> Edit</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <h3 class="center">Comment</h3>
+        </div>
+    </div>
+
+
+    <div class="row">
+        {% set commentRightLeft = 0 %}
+        {% for comment in article.comments %}
+        {% if commentRightLeft is odd %}
+        <div class="col s12 m8 offset-m3 l8 offset-l3">
+            <div class="card-panel {{ comment.color }} z-depth-1" style="margin: -10px 0 -10px 0;">
+                {% else %}
+                <div class="col s12 m8 offset-m2 l8 offset-l2">
+                    <div class="card-panel {{ comment.color }} z-depth-1" style="margin: -10px 0 -10px 0;">
+                        {% endif %}
+                        <div class="row valign-wrapper">
+                            <div class="col s2 center">
+                                <img src="{{ asset('uploads/pictures/'~comment.user.picture) }}" alt="{{ comment.user.picture }}" class="circle responsive-img" style="max-height: 100px;">
+                            </div>
+                            <div class="col s10">
+                                <h6 style="font-size: 20px; font-weight: bold">{{ comment.user.username }} {% if comment.user == app.user or is_granted('ROLE_ADMIN') %}
+                                        <span class="pull-right">
+                                            <a href="{{ path('comment_delete', {'search': article.name,'id': comment.id}) }}" role="button" class="btn waves-effect waves-light red darken-4" onclick="return confirm('Are you sure about delete your comment ?')"><i class="fa fa-trash"></i></a>
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                <a href='{{ path('user_show', {'id': comment.user.id}) }}' role="button" class="btn waves-effect waves-light blue lighten-2" ><i class="fa fa-eye"></i></a>
+                                            {% endif %}
+                                        </span>
+                                    {% endif %}
+                                </h6>
+                                <h6 style="font-size: 15px;">{{ comment.content }} </h6>
+                                <h6 class="pull-right"> {{ comment.createdAt|date('d M Y H:i:s') }} </h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {% set commentRightLeft = commentRightLeft +1 %}
+                {% endfor %}
+
+                <!-- -------------------------------------- Your futur comment -------------------------------------- -->
+
+                {% if app.user.mute == false %}
+                    {% if commentRightLeft is odd %}
+                        <div class="col s12 m8 offset-m3 l8 offset-l3">
+                    {% else %}
+                        <div class="col s12 m8 offset-m2 l8 offset-l2">
+                    {% endif %}
+                    <div class="card-panel grey lighten-5 z-depth-1" style="margin: -10px 0 -10px 0;">
+                        <div class="row valign-wrapper">
+                            <div class="col s2 center">
+                                <img src="{{ asset('uploads/pictures/'~app.user.picture) }}" alt="{{ app.user.picture }}" class="circle responsive-img" style="max-height: 100px;">
+                            </div>
+                            <div class="col s10">
+                                <h6>{{ app.user.username }}</h6>
+                                {{ form_start(form) }}
+
+                                {{ form_row(form.content) }}
+
+                                {{ form_label(form.color) }}
+                                {{ form_errors(form.color) }}
+                                {{ form_widget(form.color) }}
+
+                                <br>
+
+                                {{ form_end(form) }}
+                                <h6 class="pull-right">{{ "now"|date("d M Y") }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+        {% block stylesheets %}
+        {% endblock %}

@@ -1,0 +1,11 @@
+tag:
+    resource: "@TagBundle/Resources/config/routing.yml"
+    prefix:   /
+
+logout:
+    path: /logout
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+

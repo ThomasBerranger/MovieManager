@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h4 class="center">Add an article</h4>
+
+    <br>
+    <div class="row">
+
+        {{ form_start(form) }}
+        <div class="input-field col s8 offset-s2">
+            {{ form_row(form.name) }}
+        </div>
+
+        <div class="input-field col s8 offset-s2">
+            {{ form_row(form.author) }}
+        </div>
+
+        <div class="col s8 offset-s2">
+            <label for="">
+                {{ form_label(form.date) }}
+            </label>
+            {{ form_errors(form.date) }}
+            {{ form_widget(form.date) }}
+        </div>
+
+        <div class="file-field input-field col s8 offset-s2">
+            <div class="btn">
+                <span>Cover</span>
+                {{ form_errors(form.cover) }}
+                {{ form_widget(form.cover) }}
+            </div>
+            <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="png, jpg, jpeg">
+            </div>
+        </div>
+
+        <div class="input-field col s8 offset-s2">
+            {{ form_row(form.synopsis) }}
+        </div>
+
+        <div class="col s8 offset-s2">
+            <label for="">
+                {{ form_label(form.category) }}
+            </label>
+            {{ form_errors(form.category) }}
+            {{ form_widget(form.category) }}
+        </div>
+
+        <div class="input-field col s8 offset-s2">
+            {{ form_row(form.tags) }}
+        </div>
+
+        <div class="range-field col s4 offset-s4">
+            {{ form_row(form.note) }}
+        </div>
+
+        <div class="input-field col s8 offset-s2">
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+{% endblock %}
+
+    {% block stylesheets %}
+    {% endblock %}

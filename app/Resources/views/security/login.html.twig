@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <br>
+
+    <div class="row">
+        <form action="{{ path('login') }}" method="post">
+            <div class="input-field col s8 offset-s2">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" />
+            </div>
+            <div class="input-field col s8 offset-s2">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="_password" />
+            </div>
+            <div class="col s8 offset-s2">
+                <br>
+                <input type="checkbox" class="filled-in" id="remember_me" name="_remember_me"/>
+                <label for="remember_me">Remember me</label>
+            </div>
+            <div class="input-field col s8 offset-s2">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <br>
+                <button type="submit" class="btn waves-effect waves-light light-green"><i class="fa fa-sign-in"></i> login</button>
+                <a href="{{ path('register') }}" role="button" class="btn waves-effect waves-light light-blue pull-right">Register</a>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}

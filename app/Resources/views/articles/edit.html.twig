@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h3 class="center">Edit {{ article.name }}</h3>
+
+    <br>
+    <div class="row">
+
+        {{ form_start(form) }}
+        <div class="input-field col s8 offset-s2">
+            {{ form_row(form.name) }}
+        </div>
+
+        <div class="input-field col s8 offset-s2">
+            {{ form_row(form.author) }}
+        </div>
+
+        <div class="col s8 offset-s2">
+            <label for="">
+                {{ form_label(form.date) }}
+            </label>
+            {{ form_errors(form.date) }}
+            {{ form_widget(form.date) }}
+        </div>
+
+        <div class="input-field col s8 offset-s2">
+            {{ form_row(form.synopsis) }}
+        </div>
+
+        <div class="col s8 offset-s2">
+            <label for="">
+                {{ form_label(form.category) }}
+            </label>
+            {{ form_errors(form.category) }}
+            {{ form_widget(form.category) }}
+        </div>
+
+        <div class="input-field col s8 offset-s2">
+            {{ form_row(form.tags) }}
+        </div>
+
+        <div class="range-field col s4 offset-s4">
+            {{ form_row(form.note) }}
+        </div>
+
+        <div class="input-field col s8 offset-s2">
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}

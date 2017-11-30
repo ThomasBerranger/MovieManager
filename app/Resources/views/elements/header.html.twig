@@ -1,0 +1,87 @@
+<nav class="nav-extended light-blue darken-1">
+    <div class="nav-wrapper">
+        <a href="{{ path('home') }}" class="brand-logo center">{{ title }}</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+
+        <ul id="nav-mobile" class="left hide-on-med-and-down">
+            <li><a href="{{ path('article_list') }}"><i class="fa fa-television fa-2x"></i></a></li>
+            <li><a class="modal-trigger" href="#modal1"><i class="fa fa-info fa-2x"></i></a></li>
+        </ul>
+
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            {% if app.user.id is defined %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href='{{ path('user_show', {'id': app.user.id}) }}' ><i class="fa fa-user fa-2x"></i></a></li>
+                {% else %}
+                    <li><a class="modal-trigger" href="#modal2" ><i class="fa fa-user fa-2x"></i></a></li>
+                {% endif %}
+            {% else %}
+                <li><a href='{{ path('login') }}' ><i class="fa fa-user fa-2x"></i></a></li>
+            {% endif %}
+        </ul>
+
+        <ul class="side-nav" id="mobile-demo">
+            <h4 class="black-text center">{{ title }}</h4>
+            <li><a href="{{ path('home') }}">Home</a></li>
+            <li><a href="{{ path('perso') }}">Perso</a></li>
+            <li><a href="{{ path('article_list') }}">Library</a></li>
+            <li><a class="modal-trigger" href="#modal1">About</a></li>
+            {% if app.user.id is defined %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li><a href='{{ path('user_show', {'id': app.user.id}) }}'>Account</a></li>
+                {% else %}
+                    <li><a class="modal-trigger" href="#modal2">Account</a></li>
+                {% endif %}
+            {% else %}
+                <li><a href="#">Account</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h5>About MovieManager</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus cursus iaculis est et accumsan. Suspendisse potenti. Donec neque magna, tempor eu nibh nec, pellentesque egestas diam. Cras pulvinar elit metus, et sollicitudin quam congue at. Suspendisse mollis et quam ac congue. Vestibulum in dignissim ligula. Suspendisse malesuada turpis vitae aliquet iaculis. Integer rutrum dui ut tempus vulputate. Phasellus eget nibh accumsan, molestie est in, semper purus. Ut vehicula nisl ac justo auctor dignissim a eleifend quam. Ut ac ex quam. Donec egestas ligula viverra diam aliquet, sed hendrerit erat facilisis. Quisque metus ante, gravida at sem ut, lobortis consectetur velit. Etiam nec iaculis sapien. Pellentesque nulla neque, dictum in nunc in, sodales eleifend mi.</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+    </div>
+</div>
+
+
+{% if app.user.id is defined %}
+    <!-- Modal Structure -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <div class="row">
+                <div class="col s12"><h3 class="center">{{ app.user.username }}'s informations</h3></div>
+                <div class="col s12 m6 center" style="display: block">
+                    <img src="{{ asset('uploads/pictures/'~app.user.picture) }}" alt="{{ app.user.picture }}" style="max-height: 30vh; max-width: auto">
+                </div>
+                <div class="col s12 m6">
+                    <h5>Username : {{ app.user.username }}</h5>
+                    <h5>Email : {{ app.user.email }}</h5>
+                    <h5>Role : {{ app.user.roles|join }}</h5>
+                    <h5>Created : {{ app.user.createdAt|date('d-m-Y')}} at {{ app.user.createdAt|date('H:i:s')}}</h5>
+                    <h5>Updated :
+                        {% if app.user.updatedAt %}
+                            {{ app.user.updatedAt|date('d-m-Y')}} at {{ app.user.updatedAt|date('H:i:s')}}
+                        {% else %}
+                            no update
+                        {% endif %}
+                    </h5>
+                </div>
+            </div>
+            <p class="center">
+                <a href="{{ path('user_edit', {'id': app.user.id}) }}" role="button" class="btn waves-effect waves-light orange accent-4"><i class="fa fa-pencil-square-o"></i> Edit</a>
+                <a href="{{ path('logout') }}" role="button" class="btn waves-effect waves-light red darken-4"><i class="fa fa-sign-out"></i> Logout</a>
+            </p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
+{% endif %}

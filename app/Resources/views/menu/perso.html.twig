@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+
+<nav class="nav-extended light-blue darken-1">
+    <div class="nav-content">
+        <ul class="tabs tabs-transparent tabs-fixed-width">
+            <li class="tab"><a target="_self" href="{{ path('home') }}">HOME</a></li>
+            <li class="tab"><a class="active" href="#">PERSO</a></li>
+        </ul>
+    </div>
+</nav>
+
+<br>
+
+<div class="row">
+    <div class="col s12">
+        <div class="card">
+            <div class="card-content">
+                <span class="card-title">Favorite category</span>
+                <div class="row">
+                    <div class="col s10">
+                        {% for categoryLike in app.user.categoryLikes %}
+                            <a href="{{ path('article_list_category', {'categoryId': categoryLike.id}) }}" class="btn waves-effect green lighten-2"><i class="fa fa-folder-o"></i> {{ categoryLike.name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Favorite list</span>
+                    <div class="row">
+                        {% for articleLike in app.user.articleLikes %}
+                            <div class="col s12 m6 l6" style="margin : 10px 0 0 0">
+                                <div class="card-image">
+                                    <a href="{{ path('article_search', {'search': articleLike.name}) }}">
+                                        <img src="{{ asset('uploads/covers/'~articleLike.cover) }}" alt="{{ articleLike.cover }}" class="responsive-img img-hover">
+                                    </a>
+                                    <div class="right-align" style="margin: -20px 5px 0 0">
+                                        <a href="{{ path('user_like_delete', {'id': articleLike.id}) }}" class="btn-floating waves-effect waves-light pink lighten-1 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Remove {{ articleLike.name }} from your favorite list"><i class="material-icons">favorite</i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col s12 m6">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Wich list</span>
+                    <div class="row">
+                        {% for articleWich in app.user.articleWishes %}
+                            <div class="col s12 m6 l6" style="margin : 10px 0 0 0">
+                                <div class="card-image">
+                                    <a href="{{ path('article_search', {'search': articleWich.name}) }}">
+                                        <img src="{{ asset('uploads/covers/'~articleWich.cover) }}" alt="{{ articleWich.cover }}" class="responsive-img img-hover">
+                                    </a>
+                                    <div class="right-align" style="margin: -20px 5px 0 0">
+                                        <a href="{{ path('user_wish_delete', {'id': articleWich.id}) }}" class="btn-floating waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Remove {{ articleWich.name }} from your wish list"><i class="material-icons">remove</i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    {% endblock %}
+
+    {% block stylesheets %}
+    {% endblock %}

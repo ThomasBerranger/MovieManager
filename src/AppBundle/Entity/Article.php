@@ -1,0 +1,530 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Thomas\TagBundle\Concern\Taggable;
+
+/**
+ * Article
+ *
+ * @ORM\Table(name="article")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ArticleRepository")
+ */
+class Article
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="date")
+     */
+    private $date;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cover", type="string", length=255, nullable=true)
+     *
+     * @Assert\File(
+     *   maxSize = "2M",
+     *   mimeTypes = {"image/jpg", "image/jpeg", "image/png"},
+     *   mimeTypesMessage = "Non valid file format",
+     *   uploadIniSizeErrorMessage = "To huge file",
+     *   uploadErrorMessage = "Erreur dans l'upload du fichier"
+     * )
+     */
+    private $cover;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="article_date", type="date")
+     */
+    private $articleDate;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="synopsis", type="text", nullable=true)
+     */
+    private $synopsis;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="author", type="string", length=255)
+     */
+    private $author;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="article_update", type="date", nullable=true)
+     */
+    private $articleUpdate;
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", mappedBy="articleLikes")
+     * @ORM\JoinTable(name="article_like")
+     */
+    private $likes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", mappedBy="articleWishes")
+     * @ORM\JoinTable(name="article_wish")
+     */
+    private $wishes;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\User", mappedBy="articleWatcheds")
+     * @ORM\JoinTable(name="article_watch")
+     */
+    private $watched;
+
+    /**
+     * One Article has Many Comments.
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="article", cascade={"remove"})
+     */
+    private $comments;
+
+    /**
+     * Many Articles have One User.
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="articles")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $user;
+
+
+    /**
+     * Many Articles have One Category.
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category", inversedBy="articles")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $category;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="note", type="string", nullable=true)
+     */
+    private $note;
+
+
+    use Taggable;
+
+
+    public function __construct()
+    {
+        $this->articleDate = new \DateTime();
+    }
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Article
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Article
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set cover
+     *
+     * @param string $cover
+     *
+     * @return Article
+     */
+    public function setCover($cover)
+    {
+        $this->cover = $cover;
+
+        return $this;
+    }
+
+    /**
+     * Get cover
+     *
+     * @return string
+     */
+    public function getCover()
+    {
+        return $this->cover;
+    }
+
+    /**
+     * Set articleDate
+     *
+     * @param string $articleDate
+     *
+     * @return Article
+     */
+    public function setArticleDate($articleDate)
+    {
+        $this->articleDate = $articleDate;
+
+        return $this;
+    }
+
+    /**
+     * Get articleDate
+     *
+     * @return string
+     */
+    public function getArticleDate()
+    {
+        return $this->articleDate;
+    }
+
+    /**
+     * Set synopsis
+     *
+     * @param string $synopsis
+     *
+     * @return Article
+     */
+    public function setSynopsis($synopsis)
+    {
+        $this->synopsis = $synopsis;
+
+        return $this;
+    }
+
+    /**
+     * Get synopsis
+     *
+     * @return string
+     */
+    public function getSynopsis()
+    {
+        return $this->synopsis;
+    }
+
+    /**
+     * Set author
+     *
+     * @param string $author
+     *
+     * @return Article
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author
+     *
+     * @return string
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set articleUpdate
+     *
+     * @param \DateTime $articleUpdate
+     *
+     * @return Article
+     */
+    public function setArticleUpdate($articleUpdate)
+    {
+        $this->articleUpdate = $articleUpdate;
+
+        return $this;
+    }
+
+    /**
+     * Get articleUpdate
+     *
+     * @return \DateTime
+     */
+    public function getArticleUpdate()
+    {
+        return $this->articleUpdate;
+    }
+
+
+    /**
+     * Add like
+     *
+     * @param \AppBundle\Entity\User $like
+     *
+     * @return Article
+     */
+    public function addLike(\AppBundle\Entity\User $like)
+    {
+        $this->likes[] = $like;
+
+        return $this;
+    }
+
+    /**
+     * Remove like
+     *
+     * @param \AppBundle\Entity\User $like
+     */
+    public function removeLike(\AppBundle\Entity\User $like)
+    {
+        $this->likes->removeElement($like);
+    }
+
+    /**
+     * Get likes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * Add comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     *
+     * @return Article
+     */
+    public function addComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Remove comment
+     *
+     * @param \AppBundle\Entity\Comment $comment
+     */
+    public function removeComment(\AppBundle\Entity\Comment $comment)
+    {
+        $this->comments->removeElement($comment);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     *
+     * @return Article
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set category
+     *
+     * @param \AppBundle\Entity\Category $category
+     *
+     * @return Article
+     */
+    public function setCategory(\AppBundle\Entity\Category $category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category
+     *
+     * @return \AppBundle\Entity\Category
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+
+    /**
+     * Get wishes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getWishes()
+    {
+        return $this->wishes;
+    }
+
+    /**
+     * Add wish
+     *
+     * @param \AppBundle\Entity\User $wish
+     *
+     * @return Article
+     */
+    public function addWish(\AppBundle\Entity\User $wish)
+    {
+        $this->wishes[] = $wish;
+
+        return $this;
+    }
+
+    /**
+     * Remove wish
+     *
+     * @param \AppBundle\Entity\User $wish
+     */
+    public function removeWish(\AppBundle\Entity\User $wish)
+    {
+        $this->wishes->removeElement($wish);
+    }
+
+    /**
+     * Add watched
+     *
+     * @param \AppBundle\Entity\User $watched
+     *
+     * @return Article
+     */
+    public function addWatched(\AppBundle\Entity\User $watched)
+    {
+        $this->watched[] = $watched;
+
+        return $this;
+    }
+
+    /**
+     * Remove watched
+     *
+     * @param \AppBundle\Entity\User $watched
+     */
+    public function removeWatched(\AppBundle\Entity\User $watched)
+    {
+        $this->watched->removeElement($watched);
+    }
+
+    /**
+     * Get watched
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getWatched()
+    {
+        return $this->watched;
+    }
+
+
+
+
+    /**
+     * Set note
+     *
+     * @param string $note
+     *
+     * @return Article
+     */
+    public function setNote($note)
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    /**
+     * Get note
+     *
+     * @return string
+     */
+    public function getNote()
+    {
+        return $this->note;
+    }
+}

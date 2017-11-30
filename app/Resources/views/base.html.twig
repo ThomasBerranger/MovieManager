@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+
+    <title>{% block title %}{{ title }}{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+
+    <!-- Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Fascinate+Inline|Nunito" rel="stylesheet">
+    <!-- Font awesoms font -->
+    <link rel="stylesheet" href="{{ asset('font-awesome-4.7.0/css/font-awesome.min.css') }}" />
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('materialize-v0.100.2/materialize/css/materialize.css') }}" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+    {{ include('elements/header.html.twig') }}
+
+    {% block body %}{% endblock %}
+
+    {{ include('elements/footer.html.twig') }}
+</div>
+
+
+{% block javascripts %}{% endblock %}
+
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- Materialize -->
+<script type="text/javascript" src="{{ asset('materialize-v0.100.2/materialize/js/materialize.min.js') }}"></script>
+
+<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+</body>
+
+</html>

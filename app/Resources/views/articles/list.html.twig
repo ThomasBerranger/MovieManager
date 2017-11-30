@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <nav>
+        <div class="nav-wrapper light-blue darken-1">
+            <div class="row">
+                <div class="col s11 offset-s1" style="margin-top: -7px">
+                    <a href="{{ path('home') }}" class="breadcrumb">Menu</a>
+                    <a href="{{ path('article_list') }}" class="breadcrumb">Library</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col s12">
+            <div class="col s12 m8 offset-m2">
+                <form>
+                    <div class="input-field">
+                        {{ form_widget(form.name) }}
+                        <label for="search"><i class="material-icons">search</i></label>
+                        <i class="material-icons">close</i>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+    <div class="row">
+        <div class="col s12">
+            <ul class="collapsible" data-collapsible="accordion">
+                <li>
+                    <div class="collapsible-header">
+                        <i class="fa fa-folder"></i>
+                        All Categories
+                        <span class="badge"> {% if categorySelected is defined %} {{ categorySelected.name }} {% else %} Chose a category {% endif %} </span></div>
+                    <div class="collapsible-body white" style="margin: -20px 0 -20px 0">
+                        <div class="collection">
+                            {% for cat in category %}
+                                {% set nbArticle = 0 %}
+                                {% for art in cat.articles %}
+                                    {% set nbArticle = nbArticle + 1 %}
+                                {% endfor %}
+                                <a href="{{ path('article_list_category', {'categoryId':cat.id}) }}" class="collection-item light-blue-text tex-darken-1">
+                                    {% for categoryLike in app.user.categoryLikes if categoryLike.id == cat.id  %}
+                                        <i class="material-icons pink-text text-lighten-1">favorite</i>
+                                    {% endfor %}
+                                    <span class="badge">{{ nbArticle }}</span>
+                                    {% set nbNew = 0 %}
+                                    {% for ar in articleRecent if ar.category == cat %}
+                                        {% set nbNew = loop.index %}
+                                    {% endfor %}
+                                    {% if nbNew == 0 %}
+                                    {% else %}
+                                        <span class="new badge red darken-1" data-badge-caption="new">
+                                            {{ nbNew }}
+                                        </span>
+                                    {% endif %}
+                                    <span style="font-size: large">{{ cat.name }}</span>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="{{ path('article_list') }}" style="color: black">
+                        <div class="collapsible-header">
+                            <i class="material-icons">clear</i>
+                            Clear the filter
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    {% if categorySelected is defined %}
+        <div class="row">
+            <div class="col s12">
+                <h5><i class="fa fa-folder"></i> {{ categorySelected.name }}</h5>
+                {% for categoryLike in app.user.categoryLikes if categoryLike.id == categorySelected.id  %}
+                    <a href="{{ path('user_like_category_remove', {'id': categorySelected.id}) }}" class="btn-floating waves-effect waves-light pink lighten-1 tooltipped pull-right" style="margin-top: -45px" data-position="bottom" data-delay="50" data-tooltip="Remove {{ categorySelected.name }} from your favorite category list"><i class="material-icons">favorite</i></a>
+                {% else %}
+                    <a href="{{ path('user_like_category_add', {'id': categorySelected.id}) }}" class="btn-floating waves-effect waves-light pink lighten-1 tooltipped pull-right" style="margin-top: -45px" data-position="bottom" data-delay="50" data-tooltip="Add {{ categorySelected.name }} to your favorite category list"><i class="material-icons">favorite_border</i></a>
+                {% endfor %}
+                <hr style="border: solid 0.5px black;">
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        {% for a in article %}
+            <div class="col s6 m4 l2">
+                <a href="{{ path('article_search', {'search': a.name}) }}"><img src="{{ asset('uploads/covers/'~a.cover) }}" alt="{{ a.cover }}" class="center responsive-img img-hover" style="border-top-left-radius: 15px; border-top-right-radius: 15px;"></a>
+                <div class="card center" style="padding: 2px 0 2px 0; margin: -8px 0 10px 0; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px;">
+                    {% for articleWatch in app.user.articleWatcheds if articleWatch.id == a.id %}
+                        <a href="{{ path('user_watched_delete', {'id': a.id}) }}" class="btn-floating waves-effect blue lighten-2 tooltipped" data-position="bottom" data-delay="50" data-tooltip="You saw {{ a.name }}"><i class="fa fa-eye"></i></a>
+                    {% else %}
+                        <a href="{{ path('user_watched_add', {'id': a.id}) }}" class="btn-floating waves-effect blue lighten-2 tooltipped" data-position="bottom" data-delay="50" data-tooltip="You haven't seen {{ a.name }}"><i class="fa fa-eye-slash"></i></a>
+                    {% endfor %}
+                    {% for articleWish in app.user.articleWishes if articleWish.id == a.id %}
+                        <a href="{{ path('user_wish_delete', {'id': a.id}) }}" class="btn-floating waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Remove {{ a.name }} from your wish list"><i class="material-icons">remove</i></a>
+                    {% else %}
+                        <a href="{{ path('user_wish_add', {'id': a.id}) }}" class="btn-floating waves-effect waves-light red tooltipped" data-position="bottom" data-delay="50" data-tooltip="Add {{ a.name }} to your wish list"><i class="material-icons">add</i></a>
+                    {% endfor %}
+                    {% for articleLike in app.user.articleLikes if articleLike.id == a.id %}
+                        <a href="{{ path('user_like_delete', {'id': a.id}) }}" class="btn-floating waves-effect waves-light pink lighten-1 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Remove {{ a.name }} from your favorite list"><i class="material-icons">favorite</i></a>
+                    {% else %}
+                        <a href="{{ path('user_like_add', {'id': a.id}) }}" class="btn-floating waves-effect waves-light pink lighten-1 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Add {{ a.name }} to your favorite list"><i class="material-icons">favorite_border</i></a>
+                    {% endfor %}
+                    <a href="{{ path('article_list_category', {'categoryId':a.category.id}) }}" class="btn-floating waves-effect green lighten-2 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Watch {{ a.name }}'s category"><i class="fa fa-folder-o"></i></a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <br><br><br><br><br><br>
+
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}

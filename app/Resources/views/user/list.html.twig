@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <br>
+    <h3 class="center">List of users</h3>
+
+    <table class="bordered">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Picture</th>
+            <th>View</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        {% for u in user %}
+            <tbody>
+            <tr>
+                <td>{{ u.username }}</td>
+                <td>{{ u.email }}</td>
+                <td><img src="{{ asset('uploads/pictures/'~u.picture) }}" alt="{{ u.picture }}" style="height: 30%; width: auto"></td>
+                <td><a href='{{ path('user_show', {'id': u.id}) }}' role="button" class="btn waves-effect waves-light blue lighten-2" ><i class="fa fa-eye"></i> View</a></td>
+                <td><a href="{{ path('user_edit', {'id': u.id}) }}" role="button" class="btn waves-effect waves-light orange accent-4"><i class="fa fa-pencil-square-o"></i> Edit</a></td>
+                <td><a href="{{ path('user_delete', {'id': u.id}) }}" role="button" class="btn waves-effect waves-light red darken-4" onclick="return confirm('Are u sure about delete {{ u.username }} ?')"><i class="fa fa-trash"></i> Delete</a></td>
+            </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+
+
+
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col s12"><h3 class="center">{{ user.username }}'s informations</h3></div>
+        <div class="col s12 m6 center" style="display: block">
+            <img src="{{ asset('uploads/pictures/'~user.picture) }}" alt="{{ user.picture }}" style="max-height: 30vh; max-width: auto">
+        </div>
+        <div class="col s12 m6">
+            <h5>Id : {{ user.id }}</h5>
+            <h5>Username : {{ user.username }}</h5>
+            <h5>Email : {{ user.email }}</h5>
+            <h5>Role : {{ user.roles|join }}</h5>
+            <h5>Created : {{ user.createdAt|date('d-m-Y')}} at {{ user.createdAt|date('H:i:s')}}</h5>
+            <h5>Updated :
+                {% if user.updatedAt %}
+                    {{ user.updatedAt|date('d-m-Y')}} at {{ user.updatedAt|date('H:i:s')}}
+                {% else %}
+                    no update
+                {% endif %}
+            </h5>
+            {% if app.user.articleLikes is defined and not app.user.articleLikes.empty  %}
+                <h5>Favorite movies :
+                    {% for articleLike in user.articleLikes %}
+                        {{ articleLike.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </h5>
+            {% endif %}
+            {% if app.user.articleWishs is defined and not app.user.articleWishs.empty  %}
+                <h5>Desired movies :
+                    {% for articleWish in user.articleWishs %}
+                        {{ articleWish.name }}{% if not loop.last %}, {% endif %}
+                    {% endfor %}
+                </h5>
+                <h5>Muted :
+                    {% if user.mute == false %}
+                        No
+                    {% else %}
+                        Yes
+                    {% endif %}
+                </h5>
+            {% endif %}
+        </div>
+    </div>
+
+    <p class="center">
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('user_list') }}" role="button" class="btn waves-effect waves-light blue lighten-2"><i class="fa fa-eye"></i> View all users</a>
+            <a href="{{ path('user_delete', {'id': user.id}) }}" role="button" class="btn waves-effect waves-light red darken-4" onclick="return confirm('Are u sure about delete {{ user.username }} ?')"><i class="fa fa-trash"></i> Delete</a>
+            <a href="{{ path('user_edit', {'id': user.id}) }}" role="button" class="btn waves-effect waves-light orange accent-4"><i class="fa fa-pencil-square-o"></i> Edit</a>
+            <a href="{{ path('article_add') }}" role="button" class="btn waves-effect waves-light green darken-1"><i class="fa fa-plus"></i> Ajouter un article</a>
+        {% else %}
+            <a href="{{ path('user_edit', {'id': app.user.id}) }}" role="button" class="btn waves-effect waves-light orange accent-4"><i class="fa fa-pencil-square-o"></i> Edit</a>
+        {% endif %}
+        {% if app.user.username == user.username and app.user.email == user.email %}
+            <a href="{{ path('logout') }}" role="button" class="btn waves-effect waves-light red darken-4"><i class="fa fa-sign-out"></i> Logout</a>
+        {% else %}
+            {% if user.mute == false %}
+                <a href="{{ path('user_mute', {'id': user.id}) }}" role="button" class="btn waves-effect waves-light red darken-4"><i class="fa fa-microphone-slash"></i> Mute</a>
+            {% else %}
+                <a href="{{ path('user_stop_mute', {'id': user.id}) }}" role="button" class="btn waves-effect waves-light red darken-4"><i class="fa fa-microphone"></i> Deactivate muting</a>
+            {% endif %}
+        {% endif %}
+    </p>
+
+{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
