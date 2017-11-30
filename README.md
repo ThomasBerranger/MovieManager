@@ -3,7 +3,7 @@ MovieManager
 
 #### But ?
 
-Réaliser un "gros" projet sous Symfony3.
+Réaliser un "gros" projet sous Symfony3 afin de maitriser les fonctionnalités du framework. Customizer le rendus via un frmaework design performant.
 
 ### Outils
 
