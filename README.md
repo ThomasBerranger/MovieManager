@@ -13,7 +13,7 @@ Réaliser un "gros" projet sous Symfony3 afin de maitriser les fonctionnalités 
 - Materialize : http://materializecss.com/
 - Icons : https://www.flaticon.com/packs/kids-avatars
 
-![home1](https://user-images.githubusercontent.com/15357887/33440598-b083f3d2-d5f0-11e7-8a3d-8ac80534b23e.PNG)
+![home1](https://user-images.githubusercontent.com/15357887/33442415-6a16d752-d5f5-11e7-85be-7e290b9d8c88.PNG)
 
 ## Profil utilisateur
 
@@ -28,6 +28,12 @@ Puis l'utilisateur doit se connecter avec son username ou bien son email. Une ch
 
 Une fois connecté il accède à la home page de MovieManager :
 
+- Les 8 derniers articles sont alors présentés. L'utilisateur peut facileument accéder au synopsis ou directement à la fiche descriptive du film. Quatres boutons lui permettent de : signaler avoir vu le film ou non, ajouter ou retirer ce film de sa "wish" ou "like" list. Enfin il peut aller voir directement tous les films présents dans la même catégory que le film choisi.
 
+![home1](https://user-images.githubusercontent.com/15357887/33442415-6a16d752-d5f5-11e7-85be-7e290b9d8c88.PNG)
+![home2](https://user-images.githubusercontent.com/15357887/33441937-30e48476-d5f4-11e7-939d-578d952c0f09.PNG)
+![home3](https://user-images.githubusercontent.com/15357887/33441938-30fda0a0-d5f4-11e7-9934-6f6403360ac9.PNG)
+![home4](https://user-images.githubusercontent.com/15357887/33441939-3119fffc-d5f4-11e7-8328-2c6fa8bd6c0a.PNG)
+![home5](https://user-images.githubusercontent.com/15357887/33441940-313a3a10-d5f4-11e7-8177-7f1ea5f3b8ca.PNG)
 
 ## Profil administrateur
