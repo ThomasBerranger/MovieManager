@@ -3,7 +3,7 @@ MovieManager
 
 ### But ?
 
-Réaliser un "gros" projet sous Symfony3 afin de maitriser les fonctionnalités du framework. Customizer le rendus via un framework design performant.
+Réaliser un "gros" projet sous Symfony3 afin de maitriser les fonctionnalités du framework. Customizer le rendus via un framework design performant. Ce site est inspiré de nombreux autres site déjà existants mais diffère sur quelques points le but n'étant pas de réaliser une application web totalement crédible mais plutôt, de réaliser de nombreuses fonctionnalités.
 
 ### Outils
 
@@ -88,14 +88,41 @@ Au bas de la page se trouve un espace commentaire. Un utilisateur peut rédiger 
 
 ## Profil administrateur
 
-L'administrateur possède un profil user avec des fonctionnalités supplémentaires, 
+L'administrateur possède un profil user avec des fonctionnalités supplémentaires.
+
+Affichage d'un compte administrateur :
+
+![admin](https://user-images.githubusercontent.com/15357887/33441927-2fb78738-d5f4-11e7-9394-2cd27c2c3a3f.PNG)
+
+En plus des fonctionnalités basiques, l'admin peut voir la liste d'utilisateur enregistrés, supprimer son compte ou ajouter un nouveau film.
+Liste des utilisateurs :
+
+![user_list](https://user-images.githubusercontent.com/15357887/33441922-2f3ed892-d5f4-11e7-9209-cdd3a10e1fca.PNG)
+
+On peut ainsi retrouver chaque utilisateurs, consulter leurs données, les modifier et enfin supprimer leur compte.
+Affichage d'un profil choisi par l'administrateur :
+
+![user_show](https://user-images.githubusercontent.com/15357887/33441923-2f54fbe0-d5f4-11e7-9a04-7400aae287be.PNG)
+
+L'admin peut mute un utilisateur trop vulgaire dans les commentaires. La modifications des données se déroule sur le même principe qu'une modification normale sauf que dans notre cas, l'administrateur modifie les données d'un autre utilisateur.
+
+Ajout d'un article :
+
+![article_add](https://user-images.githubusercontent.com/15357887/33441929-2fe7867c-d5f4-11e7-83d3-fd1c960571e6.PNG)
+
+Les différents champs à référencer : Titre, autheur, date de réalisation, image, synopsis, catégory, tags associés et une note sur 10.
+
+Modification d'un article :
+
+![article_edit](https://user-images.githubusercontent.com/15357887/33441930-2ffe9a88-d5f4-11e7-8469-32bad5b7a295.PNG)
+
+Le principe est le même sauf que les champs sont préremplis.
 
 ## Version mobile
 
 ###### Bien sûr l'application web est entièrement responsive.
 
-![phone1](https://user-images.githubusercontent.com/15357887/33441947-319fbed0-d5f4-11e7-9c13-200087b2dde0.PNG) --- 
-![phone2](https://user-images.githubusercontent.com/15357887/33441921-2f205cbe-d5f4-11e7-9d9e-42352794c0f4.PNG)
+![phone1](https://user-images.githubusercontent.com/15357887/33441947-319fbed0-d5f4-11e7-9c13-200087b2dde0.PNG)      ![phone2](https://user-images.githubusercontent.com/15357887/33441921-2f205cbe-d5f4-11e7-9d9e-42352794c0f4.PNG)
 
 ## Schéma de la base de donnée
 
