@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 MovieManager
 ========================
 
@@ -130,4 +128,3 @@ Le principe est le même sauf que les champs sont préremplis.
 
 ###### (Une version de ma base est disponible sur le git)
 ![databaseschema](https://user-images.githubusercontent.com/15357887/33441934-30a8069a-d5f4-11e7-957a-1ea39d6a0597.PNG)
->>>>>>> f78583ae24cdd493ee318cab40345e03aac8c09e
