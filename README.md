@@ -70,7 +70,7 @@ Une page "Library" affiche tous les articles enregistrés dans MovieManager, une
 ![library1](https://user-images.githubusercontent.com/15357887/33441942-3157c738-d5f4-11e7-865a-9b555fe5edcc.PNG)
 
 En choisissant de sélectionner une catégorie, l'utilisateur accède à la liste des catégories, pour chacune d'elles sont affiché :
-- les favorite de l'utilisateur
+- les catégories favorites de l'utilisateur
 - les articles datant de moins de deux semaines
 - le nombre total d'articles présents
 
