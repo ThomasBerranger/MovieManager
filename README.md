@@ -1,9 +1,9 @@
 MovieManager
 ========================
 
-#### But ?
+### But ?
 
-Réaliser un "gros" projet sous Symfony3 afin de maitriser les fonctionnalités du framework. Customizer le rendus via un frmaework design performant.
+Réaliser un "gros" projet sous Symfony3 afin de maitriser les fonctionnalités du framework. Customizer le rendus via un framework design performant.
 
 ### Outils
 
@@ -88,11 +88,13 @@ Au bas de la page se trouve un espace commentaire. Un utilisateur peut rédiger 
 
 ## Profil administrateur
 
+L'administrateur possède un profil user avec des fonctionnalités supplémentaires, 
+
 ## Version mobile
 
 ###### Bien sûr l'application web est entièrement responsive.
 
-![phone1](https://user-images.githubusercontent.com/15357887/33441947-319fbed0-d5f4-11e7-9c13-200087b2dde0.PNG)
+![phone1](https://user-images.githubusercontent.com/15357887/33441947-319fbed0-d5f4-11e7-9c13-200087b2dde0.PNG) --- 
 ![phone2](https://user-images.githubusercontent.com/15357887/33441921-2f205cbe-d5f4-11e7-9d9e-42352794c0f4.PNG)
 
 ## Schéma de la base de donnée
