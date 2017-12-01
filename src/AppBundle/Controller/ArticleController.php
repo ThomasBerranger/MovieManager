@@ -9,6 +9,7 @@ use AppBundle\Entity\User;
 use AppBundle\Form\ArticleEditType;
 use AppBundle\Form\ArticleType;
 use AppBundle\Form\CommentType;
+use AppBundle\Service\Service;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,7 +27,7 @@ class ArticleController extends Controller
     /**
      * @Route("/admin/article_add", name="article_add")
      */
-    public function articleAddAction(Request $request)
+    public function articleAddAction(Request $request, Service $service)
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
@@ -51,9 +52,7 @@ class ArticleController extends Controller
                 $article->setCover($coverName);
             }
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush();
+            $service->persistAndFlush($article);
 
             return $this->redirectToRoute('article_list');
         }
@@ -98,6 +97,7 @@ class ArticleController extends Controller
 
             return $this->redirectToRoute('article_search', array("search"=>$data['name']));
         }
+
 
         return $this->render('articles/list.html.twig', array(
             "article" => $article,
@@ -156,7 +156,7 @@ class ArticleController extends Controller
     /**
      * @Route("/admin/article_edit/{id}", name="article_edit")
      */
-    public function articleEditAction(Request $request, $id)
+    public function articleEditAction(Request $request, $id, Service $service)
     {
         $article = $this->getDoctrine()
             ->getRepository(Article::class)
@@ -171,9 +171,7 @@ class ArticleController extends Controller
 
             $article->setArticleUpdate(new \DateTime());
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush();
+            $service->persistAndFlush($article);
 
             $name = $article->getName();
 
@@ -188,15 +186,13 @@ class ArticleController extends Controller
     /**
      * @Route("/admin/article_delete/{id}", name="article_delete")
      */
-    public function userDeleteAction($id)
+    public function userDeleteAction($id, Service $service)
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
         {
             $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($article);
-            $em->flush();
+            $service->removeAndFlush($article);
 
             return $this->redirectToRoute('article_list');
         }
@@ -209,7 +205,7 @@ class ArticleController extends Controller
     /**
      * @Route("/article/{search}", name="article_search")
      */
-    public function articleSearchAction(Request $request, $search)
+    public function articleSearchAction(Request $request, $search, Service $service)
     {
         $article = $this->getDoctrine()
             ->getRepository(Article::class)
@@ -231,9 +227,7 @@ class ArticleController extends Controller
 
             $commentForm->setArticle($article);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($commentForm);
-            $em->flush();
+            $service->persistAndFlush($commentForm);
 
             $form = $this->createForm(CommentType::class);
 
@@ -252,16 +246,14 @@ class ArticleController extends Controller
     /**
      * @Route("/comment/delete/{search}/{id}", name="comment_delete")
      */
-    public function commentDeleteAction(Request $request, $search, $id)
+    public function commentDeleteAction(Request $request, $search, $id, Service $service)
     {
         $comment = $this->getDoctrine()->getRepository(Comment::class)->find($id);
 
         $userComment = $comment->getUser();
 
         if ($this->getUser() == $userComment || $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($comment);
-            $em->flush();
+            $service->removeAndFlush($comment);
         }
 
         return $this->redirectToRoute('article_search', array('search' => $search));

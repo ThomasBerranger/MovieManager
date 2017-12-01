@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Admin;
 use AppBundle\Entity\Article;
+use AppBundle\Service\Service;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -40,7 +41,7 @@ class SecurityController extends Controller
     /**
      * @Route("/register", name="register")
      */
-    public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
+    public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder, Service $service)
     {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
@@ -63,9 +64,7 @@ class SecurityController extends Controller
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            $service->persistAndFlush($user);
 
             return $this->redirectToRoute('home');
         }
@@ -119,7 +118,7 @@ class SecurityController extends Controller
     /**
      * @Route("/user_edit/{id}", name="user_edit")
      */
-    public function userEditAction(Request $request, $id)
+    public function userEditAction(Request $request, $id, Service $service)
     {
         if ($this->getUser()->getId() == $id || $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
         {
@@ -143,9 +142,7 @@ class SecurityController extends Controller
                 $updatedAt = new \DateTime();
                 $user->setUpdatedAt($updatedAt);
 
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($user);
-                $em->flush();
+                $service->persistAndFlush($user);
 
                 return $this->redirectToRoute('home');
             }
@@ -164,15 +161,13 @@ class SecurityController extends Controller
     /**
      * @Route("/admin/user_delete/{id}", name="user_delete")
      */
-    public function userDeleteAction($id)
+    public function userDeleteAction($id, Service $service)
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN'))
         {
             $user = $this->getDoctrine()->getRepository(User::class)->find($id);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($user);
-            $em->flush();
+            $service->removeAndFlush($user);
 
             return $this->redirectToRoute('user_list');
         }
@@ -301,7 +296,7 @@ class SecurityController extends Controller
     /**
      * @Route("/admin/user_stop_mute/{id}", name="user_stop_mute")
      */
-    public function userMuteAction(Request $request, $id)
+    public function userMuteAction(Request $request, $id, Service $service)
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
 
@@ -309,9 +304,7 @@ class SecurityController extends Controller
 
             $user->setMute(false);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            $service->persistAndFlush($user);
 
             return $this->redirectToRoute('user_show', array('id' => $id));
         }
@@ -324,7 +317,7 @@ class SecurityController extends Controller
     /**
      * @Route("/admin/user_mute/{id}", name="user_mute")
      */
-    public function userStopMuteAction(Request $request, $id)
+    public function userStopMuteAction(Request $request, $id, Service $service)
     {
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
 
@@ -332,9 +325,7 @@ class SecurityController extends Controller
 
             $user->setMute(true);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($user);
-            $em->flush();
+            $service->persistAndFlush($user);
 
             return $this->redirectToRoute('user_show', array('id' => $id));
         }
