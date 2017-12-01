@@ -26,8 +26,8 @@
       <file leaf-file-name="article.html.twig" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Resources/views/articles/article.html.twig">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+            <state relative-caret-position="153">
+              <caret line="33" column="50" lean-forward="false" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="50" />
               <folding>
                 <element signature="n#style#0;n#div#1;n#div#1;n#!!top" expanded="true" />
               </folding>
@@ -463,12 +463,12 @@
       <workItem from="1511953959617" duration="2880000" />
       <workItem from="1511962291494" duration="5905000" />
       <workItem from="1511969413962" duration="4275000" />
-      <workItem from="1512031420284" duration="15942000" />
+      <workItem from="1512031420284" duration="17104000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="315440000" />
+    <option name="totallyTimeSpent" value="316602000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -872,8 +872,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Resources/views/articles/article.html.twig">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="57" column="0" lean-forward="true" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+        <state relative-caret-position="153">
+          <caret line="33" column="50" lean-forward="false" selection-start-line="33" selection-start-column="50" selection-end-line="33" selection-end-column="50" />
           <folding>
             <element signature="n#style#0;n#div#1;n#div#1;n#!!top" expanded="true" />
           </folding>
