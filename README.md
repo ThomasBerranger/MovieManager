@@ -35,8 +35,17 @@ Une fois connecté il accède à la home page de MovieManager :
 - Une liste des derniers commentaires ajoutés à différents films est disponible.
 
 ![home2](https://user-images.githubusercontent.com/15357887/33441937-30e48476-d5f4-11e7-939d-578d952c0f09.PNG)
+
+- Enfin des listes proposent des séléctions de choix :
+###### Des films recommandés en fonctions des goûts de l'utilisateur connecté :
 ![home3](https://user-images.githubusercontent.com/15357887/33441938-30fda0a0-d5f4-11e7-9934-6f6403360ac9.PNG)
+
+###### Une suite de films choisis au hasard :
 ![home4](https://user-images.githubusercontent.com/15357887/33441939-3119fffc-d5f4-11e7-8328-2c6fa8bd6c0a.PNG)
+
+###### Finalement les films les plus populaires :
 ![home5](https://user-images.githubusercontent.com/15357887/33441940-313a3a10-d5f4-11e7-8177-7f1ea5f3b8ca.PNG)
+
+
 
 ## Profil administrateur
