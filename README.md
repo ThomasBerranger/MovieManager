@@ -82,7 +82,7 @@ La page d'un film !
 
 Sont disponibles : titre, affiche (zoomable) synopsis, autheur, note, date de réalisation, nombre de like / wish / view, la catégorie à laquelle il appartient et les tags le définissant. Les boutons pour view, wish, like et accès à la catégorie sont toujours présent.
 
-![article2](https://user-images.githubusercontent.com/15357887/33441931-302a0b00-d5f4-11e7-8a0c-01b463476fd9.PNG)
+![article2](https://user-images.githubusercontent.com/15357887/33479103-1f994f6a-d68c-11e7-8167-0da0cd297e1e.PNG)
 
 Au bas de la page se trouve un espace commentaire. Un utilisateur peut rédiger des commentaires pour chaque articles. Après l'avoir rédigé, il peut choisir une couleur, le reste de l'affichage sera automatique. Une fois le commentaire inscrit, l'utilisateur et l'administrateur peuvent à tout moment le supprimer.
 
