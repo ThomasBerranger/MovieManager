@@ -2,6 +2,8 @@
 
 namespace AppBundle\Service;
 
+use AppBundle\Entity\Article;
+use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 
 class Service
@@ -23,5 +25,43 @@ class Service
     {
         $this->oEntityMgr->remove($data);
         $this->oEntityMgr->flush();
+    }
+
+    public function addLikeWishView($choice, User $user, $article)
+    {
+        if ($choice == "like")
+        {
+            $user->addArticleLike($article);
+            $this->oEntityMgr->flush();
+        }
+        elseif ($choice == "wish")
+        {
+            $user->addArticleWish($article);
+            $this->oEntityMgr->flush();
+        }
+        elseif ($choice == "view")
+        {
+            $user->addArticleWatched($article);
+            $this->oEntityMgr->flush();
+        }
+    }
+
+    public function removeLikeWishView($choice, User $user, $article)
+    {
+        if ($choice == "like")
+        {
+            $user->removeArticleLike($article);
+            $this->oEntityMgr->flush();
+        }
+        elseif ($choice == "wish")
+        {
+            $user->removeArticleWish($article);
+            $this->oEntityMgr->flush();
+        }
+        elseif ($choice == "view")
+        {
+            $user->removeArticleWatched($article);
+            $this->oEntityMgr->flush();
+        }
     }
 }
