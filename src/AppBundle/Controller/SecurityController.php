@@ -181,18 +181,14 @@ class SecurityController extends Controller
     /**
      * @Route("/user/likeAdd/{id}", name="user_like_add")
      */
-    public function articleLikeAddAction(Request $request, $id)
+    public function articleLikeAddAction(Request $request, $id, Service $service)
     {
         $userId = $this->getUser()->getId();
         $user = $this->getDoctrine()->getRepository(User::class)->find($userId);
 
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
 
-        $em = $this->getDoctrine()->getManager();
-
-        $user->addArticleLike($article);
-
-        $em->flush();
+        $service->addLikeWishView($choice = "like", $user, $article);
 
         return $this->redirectToRoute('perso');
     }
@@ -200,18 +196,14 @@ class SecurityController extends Controller
     /**
      * @Route("/user/likeDelete/{id}", name="user_like_delete")
      */
-    public function articleLikeDeleteAction(Request $request, $id)
+    public function articleLikeDeleteAction(Request $request, $id, Service $service)
     {
         $userId = $this->getUser()->getId();
         $user = $this->getDoctrine()->getRepository(User::class)->find($userId);
 
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
 
-        $em = $this->getDoctrine()->getManager();
-
-        $user->removeArticleLike($article);
-
-        $em->flush();
+        $service->removeLikeWishView($choice = "like", $user, $article);
 
         return $this->redirectToRoute('perso');
     }
@@ -219,18 +211,14 @@ class SecurityController extends Controller
     /**
      * @Route("/user/wishAdd/{id}", name="user_wish_add")
      */
-    public function articleWishAddAction(Request $request, $id)
+    public function articleWishAddAction(Request $request, $id, Service $service)
     {
         $userId = $this->getUser()->getId();
         $user = $this->getDoctrine()->getRepository(User::class)->find($userId);
 
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
 
-        $em = $this->getDoctrine()->getManager();
-
-        $user->addArticleWish($article);
-
-        $em->flush();
+        $service->addLikeWishView($choice = "wish", $user, $article);
 
         return $this->redirectToRoute('perso');
     }
@@ -238,18 +226,14 @@ class SecurityController extends Controller
     /**
      * @Route("/user/wishDelete/{id}", name="user_wish_delete")
      */
-    public function articleWishDeleteAction(Request $request, $id)
+    public function articleWishDeleteAction(Request $request, $id, Service $service)
     {
         $userId = $this->getUser()->getId();
         $user = $this->getDoctrine()->getRepository(User::class)->find($userId);
 
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
 
-        $em = $this->getDoctrine()->getManager();
-
-        $user->removeArticleWish($article);
-
-        $em->flush();
+        $service->removeLikeWishView($choice = "wish", $user, $article);
 
         return $this->redirectToRoute('perso');
     }
@@ -257,18 +241,14 @@ class SecurityController extends Controller
     /**
      * @Route("/user/watchedAdd/{id}", name="user_watched_add")
      */
-    public function articleWatchedAddAction(Request $request, $id)
+    public function articleWatchedAddAction(Request $request, $id, Service $service)
     {
         $userId = $this->getUser()->getId();
         $user = $this->getDoctrine()->getRepository(User::class)->find($userId);
 
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
 
-        $em = $this->getDoctrine()->getManager();
-
-        $user->addArticleWatched($article);
-
-        $em->flush();
+        $service->addLikeWishView($choice = "view", $user, $article);
 
         return $this->redirectToRoute('article_list');
     }
@@ -276,18 +256,14 @@ class SecurityController extends Controller
     /**
      * @Route("/user/watchedDelete/{id}", name="user_watched_delete")
      */
-    public function articleWatchedDeleteAction(Request $request, $id)
+    public function articleWatchedDeleteAction(Request $request, $id, Service $service)
     {
         $userId = $this->getUser()->getId();
         $user = $this->getDoctrine()->getRepository(User::class)->find($userId);
 
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
 
-        $em = $this->getDoctrine()->getManager();
-
-        $user->removeArticleWatched($article);
-
-        $em->flush();
+        $service->removeLikeWishView($choice = "view", $user, $article);
 
         return $this->redirectToRoute('article_list');
     }
