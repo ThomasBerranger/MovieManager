@@ -12,6 +12,7 @@ Réaliser un "gros" projet sous Symfony3 afin de maitriser les fonctionnalités 
 - MySQL
 - Materialize : http://materializecss.com/
 - Icons : https://www.flaticon.com/packs/kids-avatars
+- Source d'information : http://www.allocine.fr/
 
 ![home1](https://user-images.githubusercontent.com/15357887/33442415-6a16d752-d5f5-11e7-85be-7e290b9d8c88.PNG)
 
@@ -56,6 +57,10 @@ Une popup apparait affichant toutes les informations nécessaires, deux boutons 
 
 De cette façon, l'utilisateur peut modifier son username ainsi que son mail.
 
+Même principe d'affiche pour la description du site :
+
+![about](https://user-images.githubusercontent.com/15357887/33441924-2f6adc4e-d5f4-11e7-91d1-3dc89f6049ac.PNG)
+
 Une page "Perso" est dédiée aux articles que l'utilisateur aura séléctiné comme "wish" ou "like". Il peut donc aisément retrouver les films qu'il veut voir ou qu'il a aimé. Il retrouve aussi ses catégories favorites.
 
 ![perso](https://user-images.githubusercontent.com/15357887/33441945-31891dec-d5f4-11e7-8ac4-bda07c9a8202.PNG)
@@ -71,7 +76,19 @@ En choisiant de séléctionner une categorie, l'utilisateur accède à la liste 
 
 ![library2](https://user-images.githubusercontent.com/15357887/33441943-316dd726-d5f4-11e7-9a4f-2b5122572b78.PNG)
 
+La page d'un film !
+
+![article](https://user-images.githubusercontent.com/15357887/33441928-2fcf50de-d5f4-11e7-8d16-24075dbd8165.PNG)
+
+Sont disponibles : titre, affiche (zoomable) synopsis, autheur, note, date de réalisation, nombre de like / wish / view, la catégorie à laquelle il appartient et les tags le définissant. Les boutons pour view, wish, like et accès à la catégorie sont toujours présent.
+
+![article2](https://user-images.githubusercontent.com/15357887/33441931-302a0b00-d5f4-11e7-8a0c-01b463476fd9.PNG)
+
+Au bas de la page se trouve un espace commentaire. Un utilisateur peut rédiger des commentaires pour chaque articles. Après l'avoir rédigé, il peut choisir une couleur, le reste de l'affichage sera automatique. Une fois le commentaire inscrit, l'utilisateur et l'administrateur peuvent à tout moment le supprimer.
+
 ## Profil administrateur
+
+## Version mobile
 
 
 
